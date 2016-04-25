@@ -83,6 +83,25 @@ $(document).ready(() => {
           'json'
         );
    });
+   
+   $("#saving").click( () => { 
+      var dataString = $('#original').val();
+      console.log('Valor dataString: '+ dataString);
+      $.get('/mongo', function(req,res){
+     console.log(req); 
+  
+        });
+        return false;
+    });
+    
+    /* Guardar usuario al hacer click en el botón "Guarda usuario"*/
+    
+    $("id_save").click(() => {
+      
+      
+      
+    });
+    
    /* botones para rellenar el textarea */
     $('button.example').each( (_,y) => {
      $(y).click( () => { dump(`${$(y).text()}.txt`); });
