@@ -12,6 +12,7 @@
   
   const Csv = mongoose.model("Csv", CsvSchema);
 
+  Csv.remove({}).exec();
   let c1 = new Csv({'id':'input1', 'data':"'producto','precio' 'camisa','4,3' 'libro de O\"Reilly', '7,2'"});
   let c2 = new Csv({'id':'input2', 'data':"'producto','precio' 'fecha' 'camisa','4,3','14/01' 'libro de O\"Reilly', '7,2' '13/02'"});
   let c3 = new Csv({'id':'input3', 'data':"'edad', 'sueldo','peso','6000€', '90Kg' 47, '3000€', '100Kg'"});
