@@ -66,8 +66,11 @@ const handleDragOver = (evt) => {
   evt.target.style.background = "yellow";
 }
 
+
+
+
+
 $(document).ready(() => {
-  console.log(document.getElementById("original"));
     let original = document.getElementById("original");  
     if (window.localStorage && localStorage.original) {
       original.value = localStorage.original;
@@ -87,25 +90,41 @@ $(document).ready(() => {
    $("#saving").click( () => { 
       var dataString = $('#original').val();
       console.log('Valor dataString: '+ dataString);
-      $.get('/mongo', function(req,res){
-     console.log(req); 
-  
+      if (window.localStorage) localStorage.original = original.value;
+      console.log(dataString);
+      var id=$('#id').val();
+      $.get('/mongo/' + id , {
+         dataString
         });
-        return false;
-    });
-    
-    /* Guardar usuario al hacer click en el botón "Guarda usuario"*/
-    
-    $("id_save").click(() => {
-      
-      
-      
     });
     
    /* botones para rellenar el textarea */
     $('button.example').each( (_,y) => {
-     $(y).click( () => { dump(`${$(y).text()}.txt`); });
+         console.log($(y).text());
+
+     $(y).click( () => { 
+       $.get("/imput", {
+            id: $(y).text()
+       },
+        (data) => {
+            $("#original").val(data[0].data);
+        });
+       });
+       
+//       dump(`${$(y).text()}.txt`); });
    });
+   
+    $.get("/encuentra", {}, (data) => {
+ console.log("Que es: ");
+
+        for (var i = 0; i < 4; i++) {
+            if (data[i]) {
+                $('button.example').get(i).className = "example";
+                $('button.example').get(i).textContent = data[i].id;
+            //    $('drop_zone').get(i).textContent = data[i].data;
+            }
+        }
+    });
 
     // Setup the drag and drop listeners.
     //var dropZone = document.getElementsByClassName('drop_zone')[0];
@@ -116,3 +135,4 @@ $(document).ready(() => {
     inputFile.addEventListener('change', handleFileSelect, false);
  });
 })();
+

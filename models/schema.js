@@ -1,4 +1,5 @@
-(function() {
+(function(exports)
+{
   "use strict";
   const util = require('util');
   const mongoose = require('mongoose');
@@ -34,6 +35,7 @@
 
 Promise.all([p1,p2,p3]).then( (value) => { 
     console.log(util.inspect(value, {depth: null}));  
-    mongoose.connection.close(); 
+  //  mongoose.connection.close(); No cerrar nunca la conección, produce errores de sincronización
   });
+  module.exports=Csv;
 })();
